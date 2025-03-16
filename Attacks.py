@@ -1,6 +1,11 @@
-from captains import Captains
-from army import Army
-from monsters import Monsters
+# %%
+import importlib
+import army as a
+import monsters as m
+import captains as c
+importlib.reload(army)
+importlib.reload(monsters)
+importlib.reload(captains)
 
 # %%
 class Attack:
@@ -14,6 +19,24 @@ class Attack:
         print(f'Troops:  {[[m.__class__.__name__, m.amount] for m in self.troops ]}')
         print(f'Captain: {self.captain.__class__.__name__}, level: {self.captain.level}')
 
+    def round_order(self):
+        self.monster_strength = [0]*len(self.monster.units)
+        # Calculate the strength of the monster units
+        for m_index in range(len(self.monster.units)):
+            self.monster_strength[m_index] =  round(self.monster.units[m_index].strength * self.monster.units[m_index].amount+0.5)    
+            
+        self.monster_order = sorted(range(len(self.monster_strength)), key=lambda i: self.monster_strength[i], reverse=True)
+
+        # Calculate the strength of the troops units
+        self.troops_strength = [0]*len(self.troops)
+        for t_index in range(len(self.troops)):
+            self.troops_strength[t_index] = round(self.troops[t_index].strength*self.troops[t_index].amount+0.5)   
+
+        self.troops_order = sorted(range(len(self.troops_strength)), key=lambda i: self.troops_strength[i], reverse=True)
+
+        print(f'Monster order: {self.monster_order}')
+        print(f'Troops order: {self.troops_order}')
+    
     def bonus(self):
         # Check if any type in troops[0].type matches any bonus type in monster[0].bonus
         self.monster_bonus = 0  # Default bonus value
@@ -62,17 +85,19 @@ class Attack:
         
 
 # %%
-bonus_strength = 0.905
 bonus_health = 0.72
+bonus_strength = 0.905
 
 ##
-monster = Monsters.Inferno(10)
-troops = [Army.Archers(3)]
-captain = Captains.Bernard(5)
+monster = m.Monsters.Barbarian(12)
+troops = [a.Army.Spearman(2)]
+captain = c.Captains.Aydae(5)
 
 # monster = Monsters.Cursed().common_8
 # troops = [Army.Archers(3)]
 # captain = Captains.Minamoto(5)
 
-Attack(monster, troops, captain, bonus_strength, bonus_health).attack()
+attack=Attack(monster, troops, captain, bonus_strength, bonus_health)
+attack.round_order()
+attack.attack()
 # %%

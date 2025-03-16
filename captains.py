@@ -1,5 +1,11 @@
 class Captains:
 
+    class Aydae:
+        def __init__(self, level) -> None:
+            self.level = level
+            self.bonus_health = ['Guardsman', self.level/100]
+            self.bonus_strength = ['Guardsman', self.level/100]
+
     class Bernard:
         def __init__(self, level) -> None:
             self.level = level
