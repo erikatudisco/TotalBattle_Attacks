@@ -1,3 +1,5 @@
+import copy
+
 class Monster_units:
     
     class Banshee:
@@ -65,7 +67,7 @@ class Monsters:
 
         def __init__(self, level):
             if level in self.level_data:
-                self.units = self.level_data[level]
+                self.units = copy.deepcopy(self.level_data[level])
             else:
                 raise ValueError(f"Invalid level {level} for Barbarian.")
     
@@ -77,7 +79,7 @@ class Monsters:
 
         def __init__(self, level):
             if level in self.level_data:
-                self.units = self.level_data[level]
+                self.units = copy.deepcopy(self.level_data[level])
             else:
                 raise ValueError(f"Invalid level {level} for Inferno.")
 
