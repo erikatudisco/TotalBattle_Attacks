@@ -9,6 +9,7 @@ class Army:
 
         def __init__(self, level, amount=0):
             self.type = ["Guardsman", "Human", "Ranged"]
+            self.level = level
             if level in self.level_data:
                 self.strength, self.health, self.bonus = self.level_data[level]
             else:
@@ -24,6 +25,7 @@ class Army:
 
         def __init__(self, level, amount=0):
             self.type = ["Guardsman", "Human", "Melee"]
+            self.level = level
             if level in self.level_data:
                 self.strength, self.health, self.bonus = self.level_data[level]
             else:
@@ -39,6 +41,7 @@ class Army:
 
         def __init__(self, level, amount=0):
             self.type = ["Guardsman", "Human", "Mounted"]
+            self.level = level
             if level in self.level_data:
                 self.strength, self.health, self.bonus = self.level_data[level]
             else:
