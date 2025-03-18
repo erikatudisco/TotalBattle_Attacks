@@ -16,7 +16,7 @@ class Attack:
         self.bonus_strength = bonus_strength
         self.bonus_health = bonus_health
         self.troops_needed = [0]*len(troops)
-        print(f'Monster: {[[i.__class__.__name__, i.amount]          for i in self.monster.units ]}')
+        print(f'Monster: {self.monster.__class__.__name__} {self.monster.level} - {[[i.__class__.__name__, i.amount]          for i in self.monster.units ]}')
         print(f'Troops:  {[[i.__class__.__name__, i.level, i.amount] for i in self.troops ]}')
         print(f'Captain: {self.captain.__class__.__name__}, level: {self.captain.level}')
 
@@ -35,8 +35,8 @@ class Attack:
 
         self.troops_order = sorted(range(len(self.troops_strength)), key=lambda i: self.troops_strength[i], reverse=True)
 
-        print(f'Monster order: {[self.monster.units[i].__class__.__name__ for i in self.monster_order]}')
-        print(f'Troops order: {[[self.troops[i].__class__.__name__, self.troops[i].level] for i in self.troops_order]}')
+        # print(f'Monster order: {[self.monster.units[i].__class__.__name__ for i in self.monster_order]}')
+        # print(f'Troops order: {[[self.troops[i].__class__.__name__, self.troops[i].level] for i in self.troops_order]}')
     
     def bonus(self, monster_unit, troops_unit, captain):
 
@@ -104,8 +104,7 @@ class Attack:
 
         for ihit in range(max(len(self.troops), len(self.monster.units))):
 
-            print(f'Hit: {ihit+1}')
-            print(f'[units amount: {[unit.amount for unit in self.monster.units]}]')
+            print(f'\nHit: {ihit+1}')
             if all(unit.amount == 0 for unit in self.monster.units):
                 break
             # Monster attack
@@ -140,6 +139,7 @@ class Attack:
                     else:
                         self.troops_needed[troops_index] += max_troops_loss
                     print(f'monster {monster.__class__.__name__} kills {max_troops_loss} troops of type {self.troops[troops_index].__class__.__name__} level {self.troops[troops_index].level}')
+                    print(f'{troops.__class__.__name__} level {troops.level}: X {max_troops_loss} <---- {monster.__class__.__name__}')
 
 
             # Troops attack
@@ -159,7 +159,8 @@ class Attack:
                     max_monster_loos = min(monster_loss, monster.amount)
                     monster.amount -= max_monster_loos
                     troops_have_hitten[troops_index] = True
-                    print(f'troops {troops.__class__.__name__} level {troops.level} kills {max_monster_loos} monsters of type {monster.__class__.__name__}')
+                    # print(f'troops {troops.__class__.__name__} level {troops.level} kills {max_monster_loos} monsters of type {monster.__class__.__name__}')
+                    print(f'{troops.__class__.__name__} level {troops.level}: ----> {monster.__class__.__name__}  X {max_monster_loos}')                
                 else:
                     bonus_troops = [0]*len(self.troops)
                     for itroops in self.troops_order:
@@ -174,8 +175,9 @@ class Attack:
                     self.troops_needed[troops_index] += min_troops_kill
                     self.monster.units[monster_index_max].amount = 0
                     troops_have_hitten[troops_index] = True
-                    print(f'You need to send {min_troops_kill} troops of type {self.troops[troops_index].__class__.__name__} level {self.troops[troops_index].level} to kill the monster {monster.__class__.__name__}')
-
+                    # print(f'You need to send {min_troops_kill} troops of type {troops.__class__.__name__} level {troops.level} to kill the monster {monster.__class__.__name__}')
+                    print(f'{troops.__class__.__name__} level {self.troops[troops_index].level}: {min_troops_kill}  ----> {monster.__class__.__name__}')
+                
                 self.strongest_troops[ihit] = troops_index
            
         
@@ -195,30 +197,27 @@ class Attack:
         while True:
             if any(unit.amount > 0 for unit in self.monster.units):
                 iround += 1
-                print(f'Round {iround}')
+                print(f'\nRound {iround}')
                 self.round()
             else:
-                print(f'You have killed the monster!\n\n')        
+                print(f'\nYou have killed the monster!\n\n')        
                 break
 
         # Calculate the troops needed to kill the monster so that the troops with the highest strength are sent first
-        print(f'Strongest troops: {[self.troops[i].__class__.__name__ for i in self.strongest_troops]}')
+        # print(f'Strongest troops: {[[self.troops[i].__class__.__name__ self.troope[i].level] for i in self.strongest_troops]}')
         self.strongest_troops.reverse()
-        print(f'Troops needed: {self.troops_needed}')
         min_strength = self.troops[self.strongest_troops[0]].strength * self.troops_needed[self.strongest_troops[0]]  
         for i in self.strongest_troops:
             strength_i = self.troops[i].strength * self.troops_needed[i]
-            print(f'min_strength: {min_strength}, strength_i: {strength_i}')
             if strength_i < min_strength:
                 self.troops_needed[i] += round((min_strength-strength_i) / self.troops[i].strength)+10
                 min_strength = self.troops[i].strength * self.troops_needed[i]                  
-                print(f'Troops needed: {self.troops_needed}')
                 
 
         print(f'\nTroops needed:')
         for i in range(len(self.troops_needed)):
                 if self.troops_needed[i] > 0:
-                    print(f'{self.troops[i].__class__.__name__}: {self.troops_needed[i]}')        
+                    print(f'{self.troops[i].__class__.__name__} {self.troops[i].level}: {self.troops_needed[i]}')        
 
        
 # %%

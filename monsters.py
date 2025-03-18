@@ -82,6 +82,7 @@ class Monsters:
         }
 
         def __init__(self, level):
+            self.level = level
             if level in self.level_data:
                 self.units = copy.deepcopy(self.level_data[level])
             else:
@@ -93,6 +94,7 @@ class Monsters:
         }
         
         def __init__(self):
+            self.level = level
             if level in self.level_data:
                 self.units = copy.deepcopy(self.level_data[level])
             else:
@@ -106,6 +108,7 @@ class Monsters:
         }
         
         def __init__(self, level):
+            self.level = level
             if level in self.level_data:
                 self.units = copy.deepcopy(self.level_data[level])
             else:
@@ -118,6 +121,7 @@ class Monsters:
         }
 
         def __init__(self, level):
+            self.level = level
             if level in self.level_data:
                 self.units = copy.deepcopy(self.level_data[level])
             else:
@@ -130,6 +134,7 @@ class Monsters:
         }
         
         def __init__(self):
+            self.level = level
             if level in self.level_data:
                 self.units = copy.deepcopy(self.level_data[level])
             else:
