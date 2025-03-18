@@ -10,6 +10,22 @@ class Monster_units:
             self.bonus = [["Melee", 0.45]]
             self.amount = amount
 
+    class Dwarf:
+        def __init__(self, amount = 1):
+            self.type = ["Elves", "Melee"]
+            self.strength = 28
+            self.health = 84
+            self.bonus = [["Mounted", 0.15]]
+            self.amount = amount
+    
+    class Elven_Archer:
+        def __init__(self, amount = 1):
+            self.type = ["Elves", "Ranged"]
+            self.strength = 100
+            self.health = 300
+            self.bonus = [["Melee", 0.35]]
+            self.amount = amount
+
     class Fiend:
         def __init__(self, amount = 1):
             self.type = ["Demon", "Melee"]
@@ -70,6 +86,30 @@ class Monsters:
                 self.units = copy.deepcopy(self.level_data[level])
             else:
                 raise ValueError(f"Invalid level {level} for Barbarian.")
+
+    class Cursed:
+        level_data = {
+            8:  [Monster_units.Withch_Doctor(330)],
+        }
+        
+        def __init__(self):
+            if level in self.level_data:
+                self.units = copy.deepcopy(self.level_data[level])
+            else:
+                raise ValueError(f"Invalid level {level} for Cursed.")
+            
+    class Elf:
+        level_data = {
+            2:  [Monster_units.Dwarf(700)],
+            7:  [Monster_units.Elven_Archer(300)],
+            11: [Monster_units.Elven_Archer(1200), Monster_units.Dwarf(1900)],
+        }
+        
+        def __init__(self, level):
+            if level in self.level_data:
+                self.units = copy.deepcopy(self.level_data[level])
+            else:
+                raise ValueError(f"Invalid level {level} for Elf.")
     
     class Inferno:
         level_data = {
@@ -83,17 +123,6 @@ class Monsters:
             else:
                 raise ValueError(f"Invalid level {level} for Inferno.")
 
-    class Cursed:
-        level_data = {
-            8:  [Monster_units.Withch_Doctor(330)],
-        }
-        
-        def __init__(self):
-            if level in self.level_data:
-                self.units = self.level_data[level]
-            else:
-                raise ValueError(f"Invalid level {level} for Cursed.")
-
     class Undead:
         level_data = {
             1:  [Monster_units.Ghoul(93)],
@@ -102,6 +131,6 @@ class Monsters:
         
         def __init__(self):
             if level in self.level_data:
-                self.units = self.level_data[level]
+                self.units = copy.deepcopy(self.level_data[level])
             else:
                 raise ValueError(f"Invalid level {level} for Undead.")
