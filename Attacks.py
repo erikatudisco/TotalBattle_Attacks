@@ -129,7 +129,7 @@ class Attack:
                         self.troops[troops_index].amount -= max_troops_loss
                     else:
                         self.troops_needed[troops_index] += max_troops_loss
-                    print(f'monster {monster.__class__.__name__} kills {max_troops_loss} troops of type {self.troops[troops_index].__class__.__name__} level {self.troops[troops_index].level}')
+                    # print(f'monster {monster.__class__.__name__} kills {max_troops_loss} troops of type {self.troops[troops_index].__class__.__name__} level {self.troops[troops_index].level}')
                     print(f'{troops.__class__.__name__} level {troops.level}: X {max_troops_loss} <---- {monster.__class__.__name__}')
 
 
