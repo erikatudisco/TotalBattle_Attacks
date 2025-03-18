@@ -1,13 +1,4 @@
-# %%
-import importlib
-import army as a
-import monsters as m
-import captains as c
-importlib.reload(a)
-importlib.reload(m)
-importlib.reload(c)
 
-# %%
 class Attack:
     def __init__(self, monster, troops, captain, bonus_strength = 0, bonus_health = 0):
         self.monster = monster
@@ -222,45 +213,3 @@ class Attack:
        
 # %%
 
-bonus_health = 0.72
-bonus_strength = 0.905
-monster = m.Monsters.Elf(11)
-troops = [a.Army.Spearman(3), a.Army.Rider(3)]
-captain = c.Captains.Aydae(10)
-attack=Attack(monster, troops, captain, bonus_strength, bonus_health)
-attack.attack()
-
-# %%
-""" 
-monster = m.Monsters.Barbarian(12)
-troops = [a.Army.Rider(3), a.Army.Spearman(3), a.Army.Archers(3)]
-captain = c.Captains.Aydae(5)
-
-# monster = Monsters.Cursed().common_8
-# troops = [Army.Archers(3)]
-# captain = Captains.Minamoto(5)
-
-attack=Attack(monster, troops, captain, bonus_strength, bonus_health)
-attack.attack()
-
-monster = m.Monsters.Barbarian(12)
-troops = [a.Army.Rider(3)]
-attack=Attack(monster, troops, captain, bonus_strength, bonus_health)
-attack.attack()
-monster = m.Monsters.Barbarian(12)
-troops = [a.Army.Spearman(3)]
-attack=Attack(monster, troops, captain, bonus_strength, bonus_health)
-attack.attack()
-monster = m.Monsters.Barbarian(12)
-troops = [a.Army.Archers(3)]
-attack=Attack(monster, troops, captain, bonus_strength, bonus_health)
-attack.attack()
-monster = m.Monsters.Barbarian(12)
-troops = [a.Army.Spearman(3,1284), a.Army.Archers(3,810)]
-attack=Attack(monster, troops, captain, bonus_strength, bonus_health)
-attack.attack()
-monster = m.Monsters.Barbarian(12)
-troops = [a.Army.Spearman(3,1284), a.Army.Archers(3,2000)]
-attack=Attack(monster, troops, captain, bonus_strength, bonus_health)
-attack.attack()
-"""
